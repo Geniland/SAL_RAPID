@@ -1,0 +1,129 @@
+
+
+
+
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Categorie{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        select,
+        input[type="number"],
+        input[type="file"] { /* Ajoutez le style pour le champ de fichier */
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<h1>Modifier le categorie</h1>
+
+<!-- Formulaire de mise à jour du categorie -->
+<form id="productForm" method="post" action="{{ path('app_categorie_edit', {'id': categorie.id}) }}" enctype="multipart/form-data">
+    {{ form_start(form) }}
+
+    <div class="form-group">
+        {{ form_label(form.Nom, 'Nom de la  categorie') }}
+        {{ form_widget(form.Nom, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+
+
+    {{ form_row(form._token) }} {# Ajoutez le champ de jeton CSRF #}
+
+    <button type="submit" class="btn btn-primary">Update</button>
+
+    {{ form_end(form) }}
+
+
+   
+</form>
+
+<form method="post" action="{{ path('app_categorie_delete', {'id': categorie.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.id) }}">
+    <button class="btn">Delete</button>
+</form>
+<a  class="btn" href="{{ path('app_categorie_new') }}">back to list</a>
+
+
+
+
+
+
+<!-- Liste des categorie ajoutés -->
+
+<ul id="productList">
+    <!-- Vous pouvez afficher ici la liste des categorie mis à jour après la soumission du formulaire -->
+</ul>
+
+<!-- Inclure votre script JavaScript pour gérer les mises à jour de la liste ici -->
+
+<!-- Vos autres contenus ici -->
+{% endblock %}
+

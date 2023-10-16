@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit Admin{% endblock %}
+
+{% block body %}
+    <h1>Produit Admin</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+               
+                <th>Nom</th>
+                <th>Images</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prod in produits %}
+            <tr>
+                
+                <td>{{ prod.NomDuProduit }}</td>
+                <td>{% for image in prod.getImages() %}
+                    <img src="{{ asset('public/image/' ~ image) }}"  class="img-fluid product-thumbnail width="200" height="150" ">
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ path('app_produit_show', {'id': prod.id}) }}">show</a>
+                    <a href="{{ path('app_produit_edit', {'id': prod.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_produit_new') }}">Create new</a>
+{% endblock %}
